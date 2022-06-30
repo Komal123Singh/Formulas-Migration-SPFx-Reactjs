@@ -1,0 +1,8 @@
+{"$schema":"https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json",
+"elmType":"a",
+"txtContent":"",
+"attributes":{"iconName":"Edit",
+"href":{"operator":"+","operands":["https://zurichinsurancenam.sharepoint.com/sites/FIEXCEPTIONS_QA/SitePages/ExceptionPage.aspx?listID=ExceptionList1&itemID=","[$ID]"]}
+}
+}
+For EditItem-Type-Hyperlink/Picture

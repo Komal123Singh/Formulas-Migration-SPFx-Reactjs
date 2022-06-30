@@ -1,0 +1,221 @@
+1-<SunEditor name="NotesText" enableToolbar={true} lang='en' placeholder='Please type here...' setContents={this.state.Notes} setOptions={{
+                            mode: 'classic', height: '300', buttonList: [
+                              ['font', 'fontSize', 'formatBlock'], ['paragraphStyle', 'blockquote'], ['bold', 'underline', 'italic', 'strike'],
+                              ['table', 'link', 'image'],],
+                          }}
+                            onChange={this.handleRichTextChange.bind(this, 'Notes')}
+                            onImageUpload={this.handleImageUpload} onImageUploadBefore={this.handleImageUploadBefore} />
+2-
+let arrPrevSavedFiles = [];
+let arrPrevSavedFilesHtml = [];
+let arrPrevTobeRemovedFiles = [];
+let newUploadedFileArray = [];
+let uploadedRichTextFiles = [];
+let prevUploadedFilesObj = { arrPrevSavedFiles, arrPrevSavedFilesHtml, arrPrevTobeRemovedFiles, newUploadedFileArray, uploadedRichTextFiles };
+prevUploadedFilesObj = this.GetPrevSavedFiles(EditFormDetails.UploadedFiles);
+ assignEditFormDetailsStore = () => {
+UploadedExFiles: prevUploadedFilesObj.arrPrevSavedFilesHtml,
+}
+ExceptionsAction.saveForm(exceptionlistName, this.state.ExceptType, this.state.ProdLine,  this.state.Customer, this.state.ContractDate, nextStates,  this.state.DlrGroupNm, this.state.AcctNo, this.state.AcctNm,   this.state.DOB, this.state.CLITerm, this.state.Age, this.state.LifeCovg, this.state.AHCovg, this.state.InitCvg, this.state.MoBenefit, this.state.NewOrUsed, this.state.DedType, this.state.Contract, this.state.ModelYr, make, this.state.IsMakeNew, model, this.state.IsModelNew,  this.state.Odometer, this.state.VSCTerm, this.state.VSCCovg,  this.state.UnderwriterComments, this.state.Criteria, underWriterAssigned, approvedBy, approvedDate, this.state.ExpDate, this.state.Notes, prevUploadedFilesObj.uploadedRichTextFiles, nextStatus, nextProcessed, cancelledBy, cancelledDate, deniedBy, deniedDate, this.state.ReviewDate, this.state.AAOK, requestedBy, requestedDate,  this.state.StatesScope, prevUploadedFilesObj.newUploadedFileArray, prevUploadedFilesObj.arrPrevTobeRemovedFiles, prevUploadedFilesObj.arrPrevSavedFiles, this.state.Certificate,underWriterAssigndtext,requestedByText,approvedByText,deniedByText, cancelledByText, absoluteUrl);
+
+      }
+ ExceptionsAction.updateForm(exceptionlistName,uniqueId, this.state.ExceptType, this.state.ProdLine,  this.state.Customer, this.state.ContractDate,  nextStates, this.state.DlrGroupNm, this.state.AcctNo, this.state.AcctNm,   this.state.DOB, this.state.CLITerm, this.state.Age, this.state.LifeCovg, this.state.AHCovg, this.state.InitCvg, this.state.MoBenefit, this.state.NewOrUsed, this.state.DedType, this.state.Contract, this.state.ModelYr, make, this.state.IsMakeNew, model, this.state.IsModelNew,  this.state.Odometer, this.state.VSCTerm, this.state.VSCCovg,  this.state.UnderwriterComments, this.state.Criteria, underWriterAssigned, approvedBy, approvedDate, this.state.ExpDate, this.state.Notes, prevUploadedFilesObj.uploadedRichTextFiles, nextStatus, nextProcessed, cancelledBy, cancelledDate, deniedBy, deniedDate, this.state.ReviewDate, this.state.AAOK, requestedBy, requestedDate,  this.state.StatesScope, prevUploadedFilesObj.newUploadedFileArray, prevUploadedFilesObj.arrPrevTobeRemovedFiles, prevUploadedFilesObj.arrPrevSavedFiles, this.state.Certificate,underWriterAssigndtext,requestedByText,approvedByText,deniedByText,cancelledByText, absoluteUrl);
+      }
+handleRichTextChange = (fieldName, content) => {
+    try {
+      switch (fieldName) {
+
+        case 'Notes':
+          this.setState({ Notes: content });
+          break;
+}
+}
+}
+
+
+
+
+ handleImageUpload(targetImgElement, index, state, imageInfo, remainingFilesCount) {
+
+    if (imageInfo != null) {
+      let files = prevUploadedFilesObj.uploadedRichTextFiles;
+      let dataURI = imageInfo.src;
+      let fileName = imageInfo.name;
+      // let fileName=event.target.files[0].name;
+
+      if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+        var arr = dataURI.split(','),
+          mime = arr[0].match(/:(.*?);/)[1],
+          bstr = atob(arr[1]),
+          n = bstr.length,
+          u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+
+
+
+        const file = new File([u8arr], fileName, { type: mime });
+        let fExists = files.some((f) => f.imgIndex === index);
+        if (fExists) {
+          //let fileTobeUpdated = files.findIndex((e)=> { return e.imgIndex === index });
+          // files.push({imgIndex:index,imgFileName:fileName, imgFile: file});
+          files.forEach(element => {
+            if (element.imgIndex == index) {
+              element.imgFileName = fileName;
+              element.imgFile = file;
+              element.IsBase64 = true;
+            }
+          });
+        }
+        else {
+          files.push({ imgIndex: index, imgFileName: fileName, imgFile: file, IsBase64: true });
+        }
+        prevUploadedFilesObj.uploadedRichTextFiles = files;
+
+      }
+      else if (state == "update" && event == undefined) {
+
+        if (files != null && files != undefined && files.length > 0) {
+          let fExists = files.some((f) => f.imgIndex === index);
+          if (fExists) {
+            // files.forEach(element => {
+            //   if(element.imgIndex==index)
+            //   {
+            //     //files.push({imgIndex:index,imgFileName:fileName, imgFile: null,IsBase64:false});
+            //     //as same data no need to update
+            //   }
+
+            // });
+          }
+          else {
+            files.push({ imgIndex: index, imgFileName: fileName, imgFile: null, IsBase64: false });
+          }
+
+        }
+        else {
+          files.push({ imgIndex: index, imgFileName: fileName, imgFile: null, IsBase64: false });
+        }
+        prevUploadedFilesObj.uploadedRichTextFiles = files;
+      }
+
+
+    }
+    if ((state == "delete" && document.activeElement.className.indexOf('sun-editor-editable') > 0)) {
+      // var isIndexPresent=  alluploadedfilesinRichText.some(el => el.ImgID === index);
+      var counter = 0;
+      if (prevUploadedFilesObj.uploadedRichTextFiles != null && prevUploadedFilesObj.uploadedRichTextFiles != undefined && prevUploadedFilesObj.uploadedRichTextFiles.length > 0) {
+        prevUploadedFilesObj.uploadedRichTextFiles.forEach(element => {
+          if (element.imgIndex === index) {
+            prevUploadedFilesObj.uploadedRichTextFiles.splice(counter, 1);
+            if (arrAllPrevAttachments != null && arrAllPrevAttachments != undefined && arrAllPrevAttachments.length > 0 && arrAllPrevAttachments.indexOf(element.imgFileName) > -1) {
+              let alltobeRemovedArr = prevUploadedFilesObj.arrPrevTobeRemovedFiles;
+              if (alltobeRemovedArr != null && alltobeRemovedArr != undefined) {
+                if (alltobeRemovedArr.length > 0 && alltobeRemovedArr.indexOf(element.imgFileName) < 0) {
+
+                  alltobeRemovedArr.push(element.imgFileName);
+                }
+
+                else {
+
+                  alltobeRemovedArr.push(element.imgFileName);
+
+
+                }
+              }
+
+              else {
+                alltobeRemovedArr.push(element.imgFileName);
+              }
+              prevUploadedFilesObj.arrPrevTobeRemovedFiles = alltobeRemovedArr;
+            }
+
+          }
+          counter++;
+        });
+      }
+
+    }
+
+  }
+
+ handleImageUploadBefore(files, info, uploadHandler) {
+    let fileName = files[0].name;
+    // this.CheckFileBeforeUpload(fileName).then((val)=>{return val});
+    // return allowUploadImage;
+    var allowUploadImage = true;
+    if ((arrAllPrevAttachments != null && arrAllPrevAttachments != undefined && arrAllPrevAttachments.length > 0 && arrAllPrevAttachments.indexOf(fileName) > -1)) {
+
+      let AttachmentPresent = false;
+      for (let data in arrAllPrevAttachments) {
+        if (data != null && data != undefined && data.length > 0) {
+          if (arrAllPrevAttachments[data].toUpperCase() === fileName.toUpperCase()) {
+
+            AttachmentPresent = true;
+            break;
+          }
+        }
+      }
+      if (AttachmentPresent && prevUploadedFilesObj.arrPrevTobeRemovedFiles != null && prevUploadedFilesObj.arrPrevTobeRemovedFiles != undefined && prevUploadedFilesObj.arrPrevTobeRemovedFiles.length > 0 && prevUploadedFilesObj.arrPrevTobeRemovedFiles.indexOf(fileName) < 0) {
+        allowUploadImage = false;
+        alert("The file is already present.Please remove or upload file with a different Name");
+      //  dialogModalError.subText="The file is already present.Please remove or upload file with a diffrent Name";
+      //  this.setState({isModalErrorClose:false});
+      }
+    }
+
+
+
+    if (allowUploadImage && prevUploadedFilesObj.newUploadedFileArray != null && prevUploadedFilesObj.newUploadedFileArray != undefined && prevUploadedFilesObj.newUploadedFileArray.length > 0 && prevUploadedFilesObj.newUploadedFileArray.some(el => el.name === fileName)) {
+      allowUploadImage = false;
+      alert("The file is already present in the new selected files.Please remove or upload file with a different Name");
+      // dialogModalError.subText="The file is already present in the new selected files.Please remove or upload file with a diffrent Name";
+      // this.setState({isModalErrorClose:false});
+    }
+
+    if (allowUploadImage && prevUploadedFilesObj.uploadedRichTextFiles != null && prevUploadedFilesObj.uploadedRichTextFiles != undefined && prevUploadedFilesObj.uploadedRichTextFiles.some(el => el.imgFileName === fileName)) {
+      allowUploadImage = false;
+      alert("The file is already present in the notes as  files.Please remove or upload file with a different Name");
+    // dialogModalError.subText="The file is already present in the notes as  files.Please remove or upload file with a diffrent Name";
+    // this.setState({isModalErrorClose:false});
+    }
+    if(allowUploadImage && files[0].type!="image/png" && files[0].type!="image/PNG" && files[0].type!="image/JPEG" && files[0].type!="image/jpeg" && files[0].type!="image/jpg" && files[0].type!="image/JPG")
+   {
+     allowUploadImage=false;
+     alert("The image file should be in JPEG or PNG format.Please upload with specified format");
+    //  dialogModalError.subText="The image file should be in JPEG or PNG format.Please upload with specified format";
+    //  this.setState({isModalErrorClose:false});
+   }
+    return allowUploadImage;
+  }
+ private GetPrevSavedFiles(arrPrevSavedFilesDetails: any) {
+    let arrPrevSavedFiles = [];
+    let arrPrevSavedFilesHtml = [];
+    let arrPrevTobeRemovedFiles = [];
+    let newUploadedFileArray = [];
+    let uploadedRichTextFiles = [];
+    if (arrPrevSavedFilesDetails != null && arrPrevSavedFilesDetails != '') {
+      let arrAllPrevFiles = [];
+
+      arrAllPrevFiles = arrPrevSavedFilesDetails.split(';');
+      if (arrAllPrevFiles != null && arrAllPrevFiles != undefined && arrAllPrevFiles.length > 0) {
+
+        arrAllPrevFiles.forEach((filElement) => {
+
+          // NewFileDetails.push({FuileName:})
+          if (filElement != null && filElement != undefined && filElement.length > 0) {
+            // let splittedDetails = filElement;
+            let fileUrl = absoluteUrl + "/Lists/" + exceptionlistName + "/Attachments/" + uniqueId + "/" + filElement;
+            arrPrevSavedFiles.push({ FileName: filElement, FileUrl: fileUrl });
+
+            arrPrevSavedFilesHtml.push(<div id={filElement} style={{ display: "inline" }}><a href={fileUrl} download>{filElement}</a><IconButton iconProps={{ iconName: 'Delete' }} onClick={(event) => this.onRemoveExUploadedFile(filElement)}></IconButton></div>);
+          }
+        });
+      }
+      // this.setState({AttachedFiles:NewFileDetails});
+    }
+    let allPrevFiles = { arrPrevSavedFiles, arrPrevSavedFilesHtml, arrPrevTobeRemovedFiles, newUploadedFileArray, uploadedRichTextFiles }
+    return allPrevFiles;
+  }
+
+

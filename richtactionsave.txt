@@ -1,0 +1,158 @@
+/Action
+const saveForm = (exceptionlistName,ExceptType, ProdLine,
+    Customer, ContractDate, States,  DlrGroupNm, AcctNo, AcctNm, 
+      DOB, CLITerm, Age, LifeCovg, AHCovg, InitCvg, MoBenefit, NewOrUsed, 
+      DedType, Contract, ModelYr, Make, IsMakeNew, Model, IsmodelNew,  Odometer, VSCTerm, 
+      VSCCovg,  UnderwriterComments, Criteria, UnderwriterAssgnd, ApprovedBy, ApprovedDate,
+       ExpDate, Notes, uploadedRichTextFiles, RecordStatus, Processed, CancelledBy, CancelledDate, 
+       DeniedBy, DeniedDate, ReviewDate, AAOK, ReqBy, ReqDate,StatesScope,uploadedFileArray,
+       tobeRemovedArray,arrPrevSavedFiles,Certificate,underWriterAssigndtext,requestedByText,approvedByText,
+       deniedByText,cancelledByText, absoluteUrl) => {
+  debugger;
+'Notes': uploadedRichTextFiles.length > 0 ? '' : Notes,
+if(res !=null && uploadedFileArray.length>0|| tobeRemovedArray.length>0 || uploadedRichTextFiles.length>0)
+    {
+    addNewAttachments(exceptionlistName,res.data.ID,tobeRemovedArray,uploadedFileArray,uploadedRichTextFiles,arrPrevSavedFiles,Notes,absoluteUrl);
+
+    }
+    else
+    {
+      Dispatcher.dispatch({ type: 'insertResultType', response: res.data.ID });
+    }
+const addNewAttachments=async (exceptionListName,res,tobeRemovedArray, uploadedFileArray,
+  uploadedRichTextFiles,arrPrevSavedFiles,unSavedNotes,absoluteUrl)=>
+{
+  debugger;
+  const item: IItem = sp.web.lists.getByTitle(exceptionListName).items.getById(res);
+  
+  //const info2: IAttachmentInfo = await item.attachmentFiles.getByName(uploadedFileArray[0])();
+if(item!=null)
+{
+  let fileInfos: IAttachmentFileInfo[] = []; 
+  let AllfileNames=null;
+  if(uploadedFileArray!=null && uploadedFileArray!=undefined && uploadedFileArray.length>0)
+  {
+  uploadedFileArray.forEach(element => {
+    fileInfos.push({
+      name: element.name,
+      content: element
+  });
+ 
+  if(AllfileNames!=null && AllfileNames!='')
+  {
+  AllfileNames+=";"+element.name;
+  }
+  else{
+    AllfileNames=element.name;
+  }
+  });
+}
+if(arrPrevSavedFiles!=null && arrPrevSavedFiles!=undefined && arrPrevSavedFiles.length>0)
+{
+  arrPrevSavedFiles.forEach(element => {
+    if(AllfileNames!=null && AllfileNames!='')
+  {
+  AllfileNames+=";"+element.FileName;
+  }
+  else{
+   AllfileNames=element.FileName;
+  }
+  });
+}
+
+  let allRichFiles=[];
+  if(uploadedRichTextFiles!=null && uploadedRichTextFiles!=undefined && uploadedRichTextFiles.length>0)
+  {
+    allRichFiles = uploadedRichTextFiles.map(a => a.imgFile);
+  }
+  let fileInfosRich: IAttachmentFileInfo[] = []; 
+  let serializeNotes=null;
+  if(allRichFiles!=null && allRichFiles!=undefined && allRichFiles.length>0)
+  {
+   
+  for (let f of allRichFiles) {
+    
+    // fileRead.onloadend = (e) => {
+      fileInfosRich.push({
+        name: f.name,
+        content: f,
+      });
+   // }
+  }
+  let Notes =unSavedNotes;
+  let domparser = new DOMParser();
+  let  parsedNotes = domparser.parseFromString(Notes,'text/html');;
+  
+   
+
+    if(parsedNotes!=null && parsedNotes!=undefined)
+    {
+     
+     parsedNotes.querySelectorAll('img').forEach((img) => {allRichFiles.forEach((fData) => {
+   
+      if(img.getAttribute('data-file-name') ===fData['name'])
+      {
+       let newImageUrl=absoluteUrl+"/Lists/"+exceptionListName+"/Attachments/"+res+"/"+fData['name'];
+       img.setAttribute('src',newImageUrl) 
+     }
+     else
+     {
+   
+     }
+   })
+   })
+
+  }
+     let s = new XMLSerializer();
+
+      serializeNotes = s.serializeToString(parsedNotes);
+}
+  //if(tobeRemovedArray.length>0)
+  {
+    if(tobeRemovedArray.length>0)
+    {
+
+    }
+    else{
+      tobeRemovedArray=[];
+    }
+  await item.attachmentFiles.deleteMultiple(...tobeRemovedArray).then((el)=>{
+  console.log("deleteting complete Proceeding for addition");
+   item.attachmentFiles.addMultiple(fileInfos).then(v => {
+    //updateListColumns(res,uploadedFileArray);
+    console.log("Added files Uploaded");
+    item.update({
+      UploadedFiles:AllfileNames
+    }).then(allNames=>{
+      console.log('File upload updated and modified')
+     
+      item.attachmentFiles.addMultiple(fileInfosRich).then(()=>{
+        console.log("Rich text upoloaded")
+        if(serializeNotes!=null)
+        {
+
+          item.update({
+            Notes:serializeNotes
+          }).then(()=>{ 
+          console.log("Notes filed upldated")
+          Dispatcher.dispatch({ type: 'insertResultType', response: res }
+          )
+        })
+        }
+        else{
+          console.log("No note updation required")
+          Dispatcher.dispatch({ type: 'insertResultType', response: res })
+        }
+       
+     
+      })
+    //}
+      
+    });
+  });
+})
+}
+
+}
+} 
+

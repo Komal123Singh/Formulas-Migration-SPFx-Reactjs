@@ -1,0 +1,21 @@
+commands 
+for fluentui error
+ npm uninstall -D @microsoft/rush-stack-compiler-3.7
+ npm install -D @microsoft/rush-stack-compiler-3.9
+this @pnp/sp version resolved my issue try to uninstall @pnp/sp and install the below version
+
+npm uninstall @pnp/sp
+then run below command
+
+npm i @pnp/sp@2.11.0
+####for checking all spfx versions
+npm ls -g --depth=0
+"no-use-before-declare": true,[Remove this line-tslint.json]
+#########Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass[for setting a policy]
+for enabling cutom script in sp
+Set-SPOSite -Identity https://reactllearning800.sharepoint.com/sites/teams -DenyAddAndCustomizePages 0
+gulp trust-dev-cert[installing certificate]
+#################
+
+
+

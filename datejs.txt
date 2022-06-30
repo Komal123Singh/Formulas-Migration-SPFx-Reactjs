@@ -1,0 +1,10 @@
+
+var d = new Date,
+   var ampm = d.gethours >= 12 ? 'pm' : 'am';
+    dformat = [d.getMonth()+1,
+               d.getDate(),
+               d.getFullYear()].join('/')+' '+
+              [d.getHours(),
+               d.getMinutes(),
+               d.getSeconds()].join(':')+ampm
+               

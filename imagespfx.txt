@@ -1,0 +1,77 @@
+import * as React from 'react';
+import styles from './CrudFunctionality.module.scss';
+import { ICrudFunctionalityProps } from './ICrudFunctionalityProps';
+import { escape } from '@microsoft/sp-lodash-subset';
+
+ 
+
+
+export default class Form extends React.Component<ICrudFunctionalityProps, {}> {
+
+  public render(): React.ReactElement<ICrudFunctionalityProps> {
+    return (
+      <div className={ styles.crudFunctionality }>
+        <div className={ styles.container }>
+          <div>
+            <div>
+           
+          </div>
+          <div>
+         <h1>Hii i m</h1>
+          </div>
+          </div>
+
+        </div>
+      </div>
+    );
+  }
+}
+
+
+
+
+
+/************************For localhost */
+// import * as React from 'react';
+// import styles from './CrudFunctionality.module.scss';
+// import { ICrudFunctionalityProps } from './ICrudFunctionalityProps';
+// import { escape } from '@microsoft/sp-lodash-subset';
+ 
+// // const logo="./download.jpg"
+// // import Img from './components/download.jpg';
+// const divStyle = {
+//   color: 'white',
+//   backgroundImage: 'url(' +'/download.jpg' +')'
+
+
+// };
+
+
+// export default class Form extends React.Component<ICrudFunctionalityProps, {}> {
+
+//   public render(): React.ReactElement<ICrudFunctionalityProps> {
+//     return (
+//       <div className={ styles.crudFunctionality }>
+//         <div className={ styles.container }>
+//           <div className={ styles.row }>
+//             <div className={ styles.column }>
+
+//            <div>
+//                <h4>Hi am Komal Singh</h4>
+//                <div className={styles.img}></div>
+//                <img src="/dist/download_04e99b08eeb6dd7117676f3d7b38f93e.jpg" alt="logo" width="150"  /> 
+//               
+ <img src={require('./download.jpg')} alt="test" />
+//                <div style={divStyle}>Hello World!</div>
+//                           </div> 
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+Error - [tsc] node_modules/@fluentui/utilities/lib/warn/warnMutuallyExclusive.d.ts(1,13): error TS1005: '=' expected.
+[10:47:16] Error - [tsc] node_modules/@fluentui/utilities/lib/warn/warnMutuallyExclusive.d.ts(1,35): error TS1005: ';' expected.
+[10:47:16] Error - 'tsc' sub task errored after 38 s
+exited with code 2

@@ -1,0 +1,32 @@
+using (SPSite oSPsite = new SPSite("http://website url/"))
+{
+using (SPWeb oSPWeb = oSPsite.OpenWeb())
+      {
+            oSPWeb.AllowUnsafeUpdates = true;
+ 
+            // Fetch the List
+            SPList list = oSPWeb.Lists["MyList"];
+                   
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Public\TestFolder\timesheetfile.txt");
+
+            SPListItem itemToAdd = null; 
+
+            //Display the file contents by using a foreach loop.           
+            foreach (string line in lines)
+            {
+            string[] arr = line.Split(",");
+
+             //Add a new item in the List
+            itemToAdd = list.Items.Add();
+            itemToAdd["EmpName"] = Convert.Tostring(arr[0]);
+            itemToAdd["EmpNumber"] = Convert.Tostring(arr[1]);
+            itemToAdd["TimeIn"] = Convert.Tostring(arr[2]);
+            itemToAdd["TimeOut"] = Convert.Tostring(arr[3]);
+            itemToAdd.Update();
+
+            }
+             
+             list.Update(); 
+            oSPWeb.AllowUnsafeUpdates = false;
+       }
+}

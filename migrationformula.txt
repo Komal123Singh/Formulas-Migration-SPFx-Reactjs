@@ -1,0 +1,6 @@
+<DB_TITLE> + " \\" + @Text(@Year(CreateDt))+"\\"+ @IF(
+(@Text(@Month(CreateDt)))="1";"Jan";
+(@Text(@Month(CreateDt)))="2";"Feb";
+(@Text(@Month(CreateDt)))="3";"Mar";
+(@Text(@Month(CreateDt)))="4";"Apr";
+(@Text(@Month(CreateDt)))="5";"May";

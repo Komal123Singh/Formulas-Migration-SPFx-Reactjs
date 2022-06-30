@@ -1,0 +1,50 @@
+var express=require("express");
+var app=express();
+var cors=require("cors");
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded());
+var mongo=require('mongodb').MongoClient;
+var bodyparser=require('body-parser');
+
+const url="mongodb://localhost:27017";
+const dbname="testdb";
+var obj={}
+var client=new mongo(url);
+
+app.get('/',function(req,res){
+    
+    
+    client.connect(function(err){
+        
+            const db=client.db(dbname);
+            const collection=db.collection('TestCollection1');
+          
+            collection.find().toArray(function(err,response){
+                obj['data']=[...response];
+                console.log(obj.data);
+            })
+       
+    });
+    res.send(obj);
+    });
+app.post('/',function(req,res){
+   
+    console.log("data is"+JSON.stringify(req.body));
+    var data=req.body;
+    console.log(data.title);
+    
+client.connect(function(err){
+    
+        const db=client.db(dbname);
+        const collection=db.collection('TestCollection1');
+       collection.save({"title":data.title,"Name":data.Name});
+        console.log("hi from Post")
+});
+res.send("ok");
+});
+app.listen(4002);
+
+HDFc
+acno:50100412845297
+ifsc code:HDFC0000549

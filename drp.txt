@@ -1,0 +1,40 @@
+dropdown 
+{(this.state.DocType == 'Validations' || this.state.DocType == 'Issues')?
+     <div className='col-md-6'>       
+          <Dropdown  
+          label={(this.state.DocType == 'Validations')?"Result Ranking":"Priority"}
+          placeholder="Select an option" 
+          selectedKey={this.state.Priority} 
+          options={this.state.PriorityChoice} 
+          onChange={this.onPriorityDropDownChange}/>
+</div>
+:null}
+1-declare in state -.tsx file
+constructor(prop) {
+super(prop);
+this.state = {
+         DocTypeChoice: [],
+         PriorityChoice: [],
+2-Getting options from admin list in .tsx file
+public getAdminListValuesStore = () => {
+  Adminlistvalues= ValidationsProblemStore.getAdminDetails();
+
+
+  //Getting Priority Values from AdminList
+  let PriorityDropDown=[];
+  let VarPriority;
+  let splitPriorityarr=[];
+  VarPriority=Adminlistvalues[0].Priority;
+  splitPriorityarr=VarPriority!=undefined?VarPriority.split(/[\n,;]+/):[];
+  splitPriorityarr.map((item)=>{
+     PriorityDropDown.push({ key: item, text: item});     
+  });
+  this.setState({
+                 PriorityChoice:PriorityDropDown
+                });
+  console.log(this.state.PriorityChoice);
+public onPriorityDropDownChange = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => { 
+    this.setState({ Priority: item.key as string }); 
+    console.log(this.state.Priority);
+ }
+

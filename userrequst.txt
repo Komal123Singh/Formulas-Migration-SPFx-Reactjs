@@ -1,0 +1,208 @@
+<link rel="stylesheet" href="/sites/teams/SiteAssets/Bootstrap 4/css/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="/sites/teams/SiteAssets/css/User%20Request.css" type="text/css">
+<div id="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center" id="us">User Request</div>
+                    <div class="card-body">
+                      <div class="row">
+                          <div class="col-lg-12">
+                              <div class="card">
+                                  <div class="card-body">
+                                      <div class="row">
+                                          <div class="col-lg-3">
+                                              <input type="text" class="form-control" placeholder="Please enter the Request Number"/>
+                                          </div>
+                                          <div class="col-lg-3">
+                                            <button type="button" class="btn btn-warning">Retrieve</button>
+                                          </div>
+                                          <div class="col-lg-3">Status</div>
+                                          <div class="col-lg-3">
+                                              <span id="spnStatus" class="form-control bg-secondary text-white">Started</span>
+                                          </div>
+                                      </div>
+                                      
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-lg-12">
+                              <div class="card">
+                                  <div class="card-header bg-primary text-white text-center">
+                                        Request Type Information
+                                  </div>
+                                  <div  class= "card-body">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="optRequestTypeInfo" id="optMyself" value="Myself">
+                                                    <label class="form-check-label" for="optMyself">Myself</label>
+                                                  </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                  <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="optRequestTypeInfo" id="optOnBehalf" value="On-Behalf">
+                                                    <label class="form-check-label" for="optOnBehalf">On-Behalf</label>
+                                                  </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                  <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="optRequestTypeInfo" id="optExternalUser" value="External User" >
+                                                    <label class="form-check-label" for="optExternalUser">External User</label>
+                                                  </div>
+                                                  </div>
+                                            </div>
+                                        </div>
+                                  </div> 
+                              </div>
+                          </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white text-center">User Access Request Form</div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-3" >Reason for Request</div>
+                                            <div class="col-lg-3">
+                                                <select class="form-control" id="1ReasonForRequest">
+                                                
+                                                  <option value="0">Select</option>
+                                                  <!---   <option value="1">New Creation </option>
+                                                    <option value="2">Role Modification</option>
+                                                    <option value="3">User Deactivation</option>
+                                                    <option value="4">User Remove</option>
+                                                    <option value="5">User Request/Unlock
+                                                        --> 
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3">Location</div>
+                                            <div class="col-lg-3">
+                                                <select class="form-control">
+                                                    <option value="0">Select</option>
+                                                    <option value="0">Bangalore</option>
+                                                    <option value="0">Delhi</option>
+                                                    <option value="0">Mumbai</option>
+                                                    <option value="0">Gurugram</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-lg-3">Employee Name</div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                            <div class="col-lg-3">Employee Email</div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-lg-3">Employee ID</div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                            <div class="col-lg-3">User ID</div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-lg-3">Department</div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                            <div class="col-lg-3"> System Name</div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class='form-control' />
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-lg-3">System Number/ID</div>
+                                            <div class="col-lg-3">
+                                             <input type="text" class="form-control" />
+                                              
+                                            </div>
+                                            <div class="col-lg-3">User Role</div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-lg-3">HOD/Manager</div>
+                                            <div class="col-lg-3">
+                                                <select  class="form-control">
+                                                    <option value="0">Select</option>
+                                                    <option value="0">Ashlesha Borkar</option>
+                                                    <option value="0">Deeksha Pai</option>
+                                                    <option value="0">Komal Singh</option>
+                                                   
+
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3">Application Administrator</div>
+                                            <div class="col-lg-3">
+                                                <select  class="form-control">
+                                                    <option value="0">Select</option>
+                                                    <option value="0">Ashlesha Borkar</option>
+                                                    <option value="0">Deeksha Pai</option>
+                                                  
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <br>
+                                        <div class="row" style="border-style:dashed ;border-radius:2%">
+                                            <div style="margin-left: 2%;">
+                                            <p ><b>Declaration By user:</b></p>
+                                        
+                                            <p>I hereby,agree that I shall maintain the confidentiality of the access credential and shall not disclose access credential
+                                                to anyone.</p>
+                                                 <input type="checkbox">
+                                           
+                                             </div>
+                                            </div>
+                                            <br>
+                                        <div class="row" style="margin-left:30%;justify-content: space-between">
+                                            <button type="button" class="btn btn-primary">
+                                                Submit</button>
+                                            <button type="button" class="btn btn-danger" style="margin-right:50%"">
+                                                Cancel</button>
+
+                                        </div>
+                                        <br>
+                                        <div class="row" style="color: red;">
+                                            <p><i>All field marked * are mandatory and needs to be filled to submit request.
+                                            </i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                           
+                        </div>
+                    
+
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          
+        </div>
+    </div>
+    </div>
+    
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script>
+<script src="/sites/teams/SiteAssets/Bootstrap 4/js/bootstrap.js" type="text/javascript"></script>
+<script src="/sites/teams/SiteAssets/JS/UserRequest.js" type="text/javascript"></script>

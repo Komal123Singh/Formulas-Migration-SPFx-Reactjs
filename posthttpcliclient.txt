@@ -1,0 +1,41 @@
+import { HttpClient, IHttpClientOptions, HttpClientResponse } from '@microsoft/sp-http';
+
+  private getDetails(jwt_token: string): Promise<HttpClientResponse> {
+
+    let postURL = "https://3rd-party API url";
+
+    const bodyJson = JSON.stringify({
+        //json to fetch
+    });
+
+    let bearer = "Bearer " + jwt_token;
+
+    const requestHeaders: Headers = new Headers();
+    requestHeaders.append('Authorization', bearer);
+    requestHeaders.append('Content-Type', 'application/json');  
+
+    const httpClientOptions: IHttpClientOptions = {
+      body: bodyJson,
+      headers: requestHeaders,
+      mode: 'cors',
+      // method: 'POST',
+      // redirect: 'follow'
+    };
+
+    return this.props.HttpClient.post(
+      postURL,
+      HttpClient.configurations.v1,
+      httpClientOptions)
+      .then((response): Promise<HttpClientResponse> => {
+        //Here it throws error
+        return response.json();
+      })
+      .then(jsonResponse => {
+        debugger;
+        return jsonResponse;
+      }) as Promise<any>;
+  }
+
+  componentDidMount() {
+    this.getDetails(accessToken));
+  }

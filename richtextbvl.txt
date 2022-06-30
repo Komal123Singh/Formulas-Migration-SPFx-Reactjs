@@ -1,0 +1,198 @@
+const insertAttachRichTextFile = (results, files, itemId, Attachments0Rich, Attachments, responseId,type) => {
+    let domparser = new DOMParser();
+    let fileInfos = [];
+    if (files != null) {
+      for (let f of files) {
+        let fileRead = new FileReader();
+        fileRead.onloadend = (e) => {
+          fileInfos.push({
+            name: f.name,
+            content: fileRead.result,
+          });
+          results.item.attachmentFiles.addMultiple(fileInfos).then(() => {
+            results.item
+              .select('ID,AttachmentFiles',type)
+              .expand('AttachmentFiles').get().then(async (results: any) => {
+                let itemID = results.ID;
+                let fileData = results.AttachmentFiles;
+    
+                //  let Attachments0 = results.Attachments0;
+                let Attachments0 = results[type];
+    
+                let parsedAttachments0 = domparser.parseFromString(Attachments0, 'text/html');
+                await Promise.all([
+    
+                  await parsedAttachments0.querySelectorAll('img').forEach((img) => {
+                    fileData.forEach((fData) => {
+                      img.getAttribute('data-file-name') === fData['FileName'] ? img.setAttribute('src', fData['ServerRelativeUrl'])
+                        : null;
+                    });
+                  }),
+                ]);
+                updateRichItem(itemID, parsedAttachments0,Attachments,type);
+              });
+          });
+        };
+        fileRead.readAsArrayBuffer(f);
+      }
+    }
+    }
+    export { insertAttachRichTextFile };
+    
+    const updateRichItem = (itemID, parsedAttachments0,Attachments,type) => {
+    let s = new XMLSerializer();
+    
+    let serializeAttachments0 = s.serializeToString(parsedAttachments0);
+    sp.web.lists.getByTitle('Problem').items.getById(itemID).update({
+    
+      type: serializeAttachments0,
+    }).then(res => {
+    
+        if (res.data != undefined) {
+    
+            
+    
+            if (Attachments.length != 0) {
+    
+                debugger;
+    
+                res.item.attachmentFiles.addMultiple(Attachments)
+    
+                    .then(resattach => {
+    
+                        if (res.data != undefined) {
+    
+                            Dispatcher.dispatch({ type: 'insertResultType', response: itemID });
+    
+                        }
+    
+                    });
+    
+            }
+    
+            else {
+    
+                Dispatcher.dispatch({ type: 'insertResultType', response: itemID });
+    
+            }
+    
+        }
+    
+    }).catch(error => {
+    
+        console.log('updateRichItem ' + error);
+    
+    });
+    
+    }
+    
+    export { updateRichItem };
+    
+    const updateAttachRichTextFile = (results, files, itemId, Attachments0Rich,Attachments,type) => {
+        let domparser = new DOMParser();
+        debugger;
+        sp.web.lists.getByTitle('Problem').items.getById(itemId).select('ID,AttachmentFiles',type)
+          .expand('AttachmentFiles').get().then(async (fileResults: any) => {
+            let fileData = fileResults.AttachmentFiles;
+            let aFiles = [...fileData];
+      
+              let Attachments0 = fileResults[type];
+            // let Attachments0 = Attachments0Rich;
+            aFiles.forEach(async (aFile) => {
+              let isExists = files.some((f) => f['name'] === aFile['FileName']);
+              if (isExists) {
+                  debugger;
+                parseUpdate(fileData, itemId, Attachments0)
+              }
+            });
+            if (files.length > 0) {
+              let fileInfos = [];
+              for (let f of files) {
+                let fileRead = new FileReader();
+                fileRead.onloadend = (e) => {
+                  fileInfos.push({
+                    name: f.name,
+                    content: fileRead.result,
+                  });
+                  results.item.attachmentFiles.addMultiple(fileInfos).then(() => {
+                    results.item.select('ID,AttachmentFiles',type)
+                      .expand('AttachmentFiles').get().then(async (results: any) => {
+                        let itemID = results.ID;
+                        let fileData = results.AttachmentFiles;
+      
+                        let Attachments0 = results[type];
+                        parseUpdate(fileData, itemId, Attachments0);
+      
+      
+                        let parsedAttachments0 = domparser.parseFromString(Attachments0, 'text/html');
+                        await Promise.all([
+      
+      
+                          await parsedAttachments0.querySelectorAll('img').forEach((img) => {
+                            fileData.forEach((fData) => {
+                              img.getAttribute('data-file-name') === fData['FileName'] ? img.setAttribute('src', fData['ServerRelativeUrl'])
+                                : null;
+                            });
+                          }),
+      
+                        ]);
+      
+                        updateRichItem(itemID, parsedAttachments0,Attachments,type);
+                      });
+                  });
+                };
+                fileRead.readAsArrayBuffer(f);
+              }
+            }
+            else if (files.length == 0) {
+                debugger;
+              parseUpdate(fileData, itemId, Attachments0)
+            }
+          });
+      }
+      export { updateAttachRichTextFile };
+      
+      const parseUpdate = async (fileData, itemId, Attachments0) => {
+          debugger;
+        let fileLevlInfos = [];
+        let domparser = new DOMParser();
+      
+      
+        let parsedAttachments0 = domparser.parseFromString(Attachments0, 'text/html');
+      
+        parsedAttachments0.querySelectorAll('img').forEach((img) => {
+          let iName = img.getAttribute('data-file-name');
+          fileData.forEach((fData) => {
+            img.getAttribute('data-file-name') === fData['FileName']
+              ? img.setAttribute('src', fData['ServerRelativeUrl']) : null;
+          });
+          fileLevlInfos.indexOf(iName)
+            ? console.log('exisitng file')
+            : fileLevlInfos.push(iName);
+        });
+        let item = await sp.web.lists.getByTitle('Problem').items.getById(itemId);
+        if (fileData.length !== fileLevlInfos.length) {
+          let fInfos = [];
+          fileData.forEach((aFile) => {
+            fInfos.push(aFile['FileName']);
+          });
+          let ainfos = fInfos.join('","');
+          let infos = ainfos.toString();
+          fileLevlInfos.length !== 0
+            ? fileLevlInfos.forEach((rFile) => {
+              fileData.forEach(async (aFile) => {
+                rFile === aFile['FileName'] ? console.log('') : await item.attachmentFiles
+                  .getByName(aFile['FileName']).delete();
+              });
+            })
+            : await item.attachmentFiles.deleteMultiple(infos);
+        }
+      }
+      export { parseUpdate };
+
+
+
+
+
+
+

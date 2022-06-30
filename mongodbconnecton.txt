@@ -1,0 +1,40 @@
+var express=require('express');
+var app=express();
+const MongoClient = require('mongodb').MongoClient;
+var cors=require('cors');
+const assert = require('assert');
+
+// Connection URL
+const url = 'mongodb://localhost:27017';
+var text="";
+// Database Name
+const dbName = 'testdb';
+//creat a mongoclient
+app.use(cors());
+app.get('/hello',function(req,res){
+const client=new MongoClient(url);
+client.connect(function(err){
+assert.equal(null,err);
+console.log("Connection Successfull!!!");
+const db=client.db(dbName);
+const collection=db.collection('TestCollection1');
+collection.find().toArray(function(err,response){
+console.log(response);
+str=[...response];
+})
+client.close();
+});
+var obj={
+data:str
+}
+res.send(obj);
+});
+app.listen(4000);
+
+
+
+
+
+
+
+

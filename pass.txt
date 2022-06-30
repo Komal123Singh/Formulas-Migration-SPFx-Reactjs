@@ -1,0 +1,42 @@
+komalsingh@reactllearning800.onmicrosoft.com
+
+https://reactllearning800.sharepoint.com/sites/teams/SiteAssets/Forms/AllItems.aspx
+Set-SPOSite -Identity https://reactllearning800.sharepoint.com/sites/teams -DenyAddAndCustomizePages 0
+https://reactllearning800.sharepoint.com/sites/appcatalog/AppCatalog/Forms/AllItems.aspx
+https://reactllearning800.sharepoint.com/sites/teams/_api/web/lists/getbytitle('Urslist')?$select=ListItemEntityTypeFullName     </div>
+User%20Experience
+https://reactllearning800.sharepoint.com/sites/teams/_layouts/15/workbench.aspx
+C:\Users\ksingh318\AppData\Local\Packages\microsoft.windowscommunicationsapps_8wekyb3d8bbwe\LocalState\Files\S0\1\Attachments
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dxc global password:
+excpss-Ambika@1
+
+PYBOM00130150001075942 (pf)
+. https://hpe.zoom.us/w/95409736106?tk=LoobBVpM88Qpx6ozn8nujRKvaPz0H4eD7NWyqZoDTzs.DQMAAAAWNt0JqhZ2VDJOa1ExWVRDMjlhbnpUSzhnR2ZBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=c0tENlRRYzBRd25sMEZMWjRDTEhVdz09
+    Passcode: 660601
+
